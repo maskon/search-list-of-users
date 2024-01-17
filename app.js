@@ -1,5 +1,6 @@
 const list = document.getElementById('list')
 const filterElem = document.getElementById('filter')
+const total = document.getElementById('total')
 
 async function start() {
     try {
@@ -8,12 +9,16 @@ async function start() {
         
         list.innerHTML = 'Loading...'
         
+        total.style.color = '#9aef40'
+        total.style.marginLeft = '10px'
+        
         setTimeout( () => {
             
             list.innerHTML = ''
             
             user.forEach(function (item) {
-                render(item)                 
+                render(item)
+                total.innerHTML = user.length
             })
             
         },2000)   
@@ -29,10 +34,13 @@ async function start() {
             
             userFilter.forEach(function (item) {                
                 render(item)
+                total.innerHTML = userFilter.length
             })
             
-            userFilter.length === 0 ? list.innerHTML = 'Ничего не найдено!' : ''
-            
+            if (userFilter.length === 0) {
+                list.innerHTML = 'Ничего не найдено!'
+                total.innerHTML = 0
+            }
         })
         
     } catch (err) {
